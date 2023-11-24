@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 class ER_network:
 	def __init__(self, N,p,title):
-		self.num=N#初始时网络有 N 个节点
+		self.num=N#初始时网络有N 个节点
 		self.p=p#每对节点以概率 p 被选择，进行连边，不允许重复连边。
 		self.title=title
 
