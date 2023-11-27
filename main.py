@@ -29,7 +29,7 @@ from SIR_Network import SIR_model as SIR
 # sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,
 # 	network="BA_network",method="random_node")
 # sir_model_ba.main()
-sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,network="BA_network",method="random_set")
+sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,network="barabasi_albert_graph",method="random_set")
 sir_model_ba.main()
 
 
