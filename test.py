@@ -1,15 +1,13 @@
+import random
+
 import networkx as nx
 
+random.seed(1)
 # 创建原始图
-G = nx.Graph()
-G.add_edges_from([(1, 2), (1, 3), (2, 3), (2, 4), (3, 4)])
-
-# 定义特定节点集合 U
-U = {1,2,  4}
-
-# 获取子图
-subgraph = G.subgraph(U)
-
-# 打印子图的节点和边
-print("Subgraph Nodes:", subgraph.nodes())
-print("Subgraph Edges:", subgraph.edges())
+l=[1,2,3,4,5,6]
+l_c=l.copy()
+l_c.remove(1)
+for i in range(5):
+    random.shuffle(l_c)
+    print(l)
+    print(l_c)
