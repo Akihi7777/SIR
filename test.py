@@ -1,13 +1,8 @@
-import random
+# 创建一个示例列表
+my_list = [1, 2, 3, 4, 5, 5, 2, 5, 5]
 
-import networkx as nx
-
-random.seed(1)
-# 创建原始图
-l=[1,2,3,4,5,6]
-l_c=l.copy()
-l_c.remove(1)
-for i in range(5):
-    random.shuffle(l_c)
-    print(l)
-    print(l_c)
+# 判断最后五个元素是否相同
+if my_list[-5:] == [my_list[-1]] * 5:
+    print("The last five elements are the same.")
+else:
+    print("The last five elements are not the same.")

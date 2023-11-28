@@ -3,10 +3,13 @@
 # @Date:   2018-10-19 21:37:31
 # @Last Modified by:   JasonWong97
 # @Last Modified time: 2018-10-21 20:45:30
-
+import numpy as np
+import matplotlib.pyplot as plt
 from ER_Network import ER_network as ER
 from BA_Network import BA_network as BA
 from SIR_Network import SIR_model as SIR
+import pylab as pl
+
 
 # er_network=ER(N=1000,p=0.006,title="ER network")
 # er_network.main()
@@ -29,8 +32,27 @@ from SIR_Network import SIR_model as SIR
 # sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,
 # 	network="BA_network",method="random_node")
 # sir_model_ba.main()
-sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,network="barabasi_albert_graph",method="random_set")
-sir_model_ba.main()
+total_links=300
+rounds=10
+times=np.zeros(int(total_links/10)+1)
+add_links=0
+x=[]
+while add_links<=total_links/10:
+    for i in range(rounds):
+        sir_model_ba=SIR(beta=0.02,miu=0.1,t=100,network="Add_Links_Random",method="max_node",add_links=add_links)
+        times[add_links]+=sir_model_ba.main()
+    times[add_links]=times[add_links]/rounds
+
+    x.append(add_links)
+    add_links += 1
+x=np.array(x)
+plt.plot(x*10,times, '-k', label='Susceptibles')
+plt.legend(loc=0)
+plt.title('SIR_Model with links adding randomly')
+plt.xlabel('add_links')
+plt.ylabel('times')
+plt.show()
+#sir_model_ba=SIR(beta=0.15,miu=0.1,t=100,network="barabasi_albert_graph",method="random_set")
 
 
 
