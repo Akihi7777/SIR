@@ -5,7 +5,10 @@ import pylab as pl
 from ER_Network import ER_network as ER
 from BA_Network import BA_network as BA
 from Add_Links_By_Betweenness import Add_Links_By_Betweenness as ALBB
+from Add_Links_Random import Add_Links_Random as ALR
 import networkx as nx
+
+random.seed(2)
 class SIR_model:
 	def __init__(self, beta,miu,t,network,method,add_links):
 		self.beta = beta #感染概率
@@ -30,6 +33,9 @@ class SIR_model:
 		elif self.network=="Add_Links_By_Betweenness":
 			albb=ALBB(500,3,self.add_links)
 			net_matrix=albb.main()
+		elif self.network=="Add_Links_Random":
+			alr=ALR(self.add_links)
+			net_matrix=alr.main()
 		else:
 			print("Please choose correct network")
 		return net_matrix
@@ -81,8 +87,9 @@ class SIR_model:
 			SIR_t_seq_i.append(np.sum(SIR_list == 2))
 			SIR_t_seq_r.append(np.sum(SIR_list == 3))
 			#判断易感人群是否收敛
-			if SIR_t_seq_s[-5:] == [SIR_t_seq_s[-1]] * 5:
+			if SIR_t_seq_s[-5:] == [SIR_t_seq_s[-1]] * 3:
 				return SIR_t_seq_s.index(SIR_t_seq_s[-1])+1
+		return self.t
 		# 返回t时间内s，i，r的数量变化序列
 		#return SIR_t_seq_s, SIR_t_seq_i, SIR_t_seq_r
 

@@ -1,18 +1,16 @@
 import random
 import numpy as np
-import matplotlib.pyplot as plt
-import pylab as pl
-from ER_Network import ER_network as ER
-from BA_Network import BA_network as BA
 import networkx as nx
 import community.community_louvain as cl
 import operator
 
-random.seed(2)
+#random.seed(2)
 class Add_Links_By_Betweenness:
     def __init__(self,n,m,k):
-        self.G=nx.barabasi_albert_graph(n, m)
-        self.net_matrix=nx.to_numpy_array(self.G)
+        # self.G=nx.barabasi_albert_graph(n, m)
+        # self.net_matrix=nx.to_numpy_array(self.G)
+        self.net_matrix = np.loadtxt('data.txt', delimiter=' ')
+        self.G=nx.from_numpy_array(self.net_matrix)
         self.k=k
         self.edge_count=0
 
@@ -24,11 +22,12 @@ class Add_Links_By_Betweenness:
             self.community_graph.append(nx.subgraph(self.G,list_nodes))
 
     def betweenness_without_decay(self):
-        #node_num=int(self.k*len(self.G.nodes))
+        node_num=int(0.3*len(self.G.nodes))
         G_betweenness = nx.betweenness_centrality(self.G)
-        high_betweenness_nodes = sorted(G_betweenness.items(), key=operator.itemgetter(1), reverse=True)[:self.k]
+        high_betweenness_nodes = sorted(G_betweenness.items(), key=operator.itemgetter(1), reverse=True)[:node_num]
         high_betweenness_nodes=[item[0] for item in high_betweenness_nodes]
-        for node in high_betweenness_nodes:
+        for i in range(self.k):
+            node=random.choice(high_betweenness_nodes)
             nodes_list_copy=high_betweenness_nodes.copy()
             nodes_list_copy.remove(node)
             random.shuffle(nodes_list_copy)
