@@ -17,6 +17,19 @@ class Add_Links_Random:
             list_nodes = [nodes for nodes in self.partition.keys() if self.partition[nodes] == com]
             self.community_graph.append(nx.subgraph(self.G, list_nodes))
 
+    # def add_links(self):
+    #     nodes=list(self.G.nodes)
+    #     for i in range(self.k):
+    #         node=random.choice(nodes)
+    #         nodes_list_copy=nodes.copy()
+    #         nodes_list_copy.remove(node)
+    #         random.shuffle(nodes_list_copy)
+    #         for node_candidate in nodes_list_copy:
+    #             if self.G.has_edge(node,node_candidate)==False and self.partition[node]!=self.partition[node_candidate]:
+    #                 self.G.add_edge(node,node_candidate)
+    #                 break
+    #     #print('count:',self.edge_count)
+    #     return nx.to_numpy_array(self.G)
     def add_links(self):
         nodes=list(self.G.nodes)
         for i in range(self.k):
@@ -25,14 +38,14 @@ class Add_Links_Random:
             nodes_list_copy.remove(node)
             random.shuffle(nodes_list_copy)
             for node_candidate in nodes_list_copy:
-                if self.G.has_edge(node,node_candidate)==False and self.partition[node]!=self.partition[node_candidate]:
+                if self.G.has_edge(node,node_candidate)==False:
                     self.G.add_edge(node,node_candidate)
                     break
         #print('count:',self.edge_count)
         return nx.to_numpy_array(self.G)
 
     def main(self):
-        self.community_lovain()
+        #self.community_lovain()
         G_matrix=self.add_links()
         return G_matrix
 # if __name__ == '__main__':

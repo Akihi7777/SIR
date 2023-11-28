@@ -9,7 +9,7 @@ class Add_Links_By_Betweenness:
     def __init__(self,n,m,k):
         # self.G=nx.barabasi_albert_graph(n, m)
         # self.net_matrix=nx.to_numpy_array(self.G)
-        self.net_matrix = np.loadtxt('data.txt', delimiter=' ')
+        self.net_matrix = np.loadtxt('data1.txt', delimiter=' ')
         self.G=nx.from_numpy_array(self.net_matrix)
         self.k=k
         self.edge_count=0
@@ -22,7 +22,7 @@ class Add_Links_By_Betweenness:
             self.community_graph.append(nx.subgraph(self.G,list_nodes))
 
     def betweenness_without_decay(self):
-        node_num=int(0.3*len(self.G.nodes))
+        node_num=int(0.1*len(self.G.nodes))
         G_betweenness = nx.betweenness_centrality(self.G)
         high_betweenness_nodes = sorted(G_betweenness.items(), key=operator.itemgetter(1), reverse=True)[:node_num]
         high_betweenness_nodes=[item[0] for item in high_betweenness_nodes]
